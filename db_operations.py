@@ -1,5 +1,6 @@
 from supabase import create_client
 import toml
+import os
 
 try:
     secrets_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'secrets.toml'))
@@ -7,8 +8,8 @@ try:
 except FileNotFoundError:
     print('El archivo secrets.toml no se encontró. Asegúrate de que esté presente en el directorio raíz.')
     raise
-SUPABASE_URL = secrets['SUPABASE_URL']
-SUPABASE_KEY = secrets['SUPABASE_KEY']
+SUPABASE_URL = secrets['SUPABASE']['URL']
+SUPABASE_KEY = secrets['SUPABASE']['KEY']
 
 supabase_client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
