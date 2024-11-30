@@ -8,15 +8,14 @@ import secrets
 import toml
 import os
 
-#Configurar el cliente de Supabase
+# Configurar el cliente de Supabase
 try:
-    secrets_path = os.path.join(os.path.dirname(__file__), 'secrets.toml')
-    secrets = toml.load(secrets_path)
+    secrets = toml.load('secrets.toml')
 except FileNotFoundError:
-    st.error('Archivo de credenciales no encontrado')
+    st.error('El archivo secrets.toml no se encontró. Asegúrate de que esté presente en el directorio raíz.')
     st.stop()
-SUPABASE_URL = secrets[SUPABASE_URL]
-SUPABASE_KEY = secrets[SUPABASE_KEY]
+SUPABASE_URL = secrets['SUPABASE_URL']
+SUPABASE_KEY = secrets['SUPABASE_KEY']
 
 supabase_client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
