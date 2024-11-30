@@ -26,7 +26,7 @@ def cargar_datos():
 
 def insertar_resultado_prediccion(prediccion_exito):
     data = {
-        "fecha": datetime.datetime.now(),
+        "fecha": datetime.datetime.now().isoformat(),  # Convertir datetime a una cadena en formato ISO
         "exito_predicho": prediccion_exito
     }
     supabase_client.table("resultados_prediccion").insert(data).execute()
