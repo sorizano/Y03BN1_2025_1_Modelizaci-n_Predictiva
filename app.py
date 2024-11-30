@@ -11,11 +11,7 @@ import os
 # Configurar el cliente de Supabase
 try:
     secrets_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'secrets.toml'))
-try:
     secrets = toml.load(secrets_path)
-except FileNotFoundError:
-    st.error('El archivo secrets.toml no se encontró. Asegúrate de que esté presente en el directorio raíz.')
-    st.stop()
 except FileNotFoundError:
     st.error('El archivo secrets.toml no se encontró. Asegúrate de que esté presente en el directorio raíz.')
     st.stop()
