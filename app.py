@@ -6,6 +6,7 @@ from supabase import create_client
 import json
 import toml
 import os
+import joblib  # Para cargar el modelo entrenado
 
 # Configurar el cliente de Supabase
 try:
@@ -24,12 +25,20 @@ supabase_client = create_client(SUPABASE_URL, SUPABASE_KEY)
 def cargar_datos():
     return pd.read_csv('mining_data.csv')
 
+# Función para insertar resultados de predicción en la base de datos
 def insertar_resultado_prediccion(prediccion_exito):
     data = {
-        "fecha": datetime.datetime.now().isoformat(),  # Convertir datetime a una cadena en formato ISO
+        "fecha": datetime.datetime.now().isoformat(),  # Convertir datetime a cadena en formato ISO
         "exito_predicho": prediccion_exito
     }
     supabase_client.table("resultados_prediccion").insert(data).execute()
+
+# Cargar el modelo entrenado de Árbol de Decisión
+try:
+    modelo = joblib.load('modelo_arbol_decision.pkl')
+except FileNotFoundError:
+    st.error('El modelo entrenado no se encontró. Asegúrate de que "modelo_arbol_decision.pkl" esté en el directorio raíz.')
+    st.stop()
 
 # Definir la interfaz de usuario con Streamlit
 st.title("Modelo Predictivo para Proceso Minero")
@@ -51,9 +60,11 @@ datos.update(datos_normalizados)
 st.write("Datos normalizados:")
 st.dataframe(datos)
 
-# Dummy Predictor: vamos a simular una predicción simple
+# Predicción usando el modelo entrenado
 st.subheader("Predicción del proceso")
 if st.button("Predecir Exito"):
-    exito_predicho = True if datos['calidad_mineral'].mean() > 7 else False
+    # Realizar la predicción usando el modelo cargado
+    prediccion = modelo.predict(datos_normalizados)
+    exito_predicho = prediccion[0] == 1  # Suponiendo que '1' representa éxito en la columna 'etiqueta'
     insertar_resultado_prediccion(exito_predicho)
     st.write(f"Resultado de predicción: {'Exitoso' if exito_predicho else 'No Exitoso'}")
