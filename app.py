@@ -1,5 +1,5 @@
 import streamlit as st
-import pandas pd
+import pandas as pd
 import supabase
 import datatime
 from supabase import create_client
