@@ -6,10 +6,12 @@ from supabase import create_client
 import json
 import secrets
 import toml
+import os
 
 #Configurar el cliente de Supabase
 try:
-    secrets = toml.load('secrets.toml')
+    secrets_path = os.path.join(os.path.dirname(__file__), 'secrets.toml')
+    secrets = toml.load(secrets_path)
 except FileNotFoundError:
     st.error('Archivo de credenciales no encontrado')
     st.stop()
