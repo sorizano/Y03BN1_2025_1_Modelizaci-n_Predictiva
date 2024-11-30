@@ -5,6 +5,7 @@ import datetime
 from supabase import create_client
 import json
 import secrets
+import toml
 
 #Configurar el cliente de Supabase
 secrets = toml.load('secrets.toml')
