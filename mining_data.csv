@@ -1,0 +1,9 @@
+numero_trabajadores,equipos_operativos,produccion_obtenida,consumo_energia,calidad_mineral,etiqueta
+50,TRUE,300,120.5,8.7,1
+45,FALSE,200,150.0,6.5,0
+60,TRUE,350,180.0,9.0,1
+30,TRUE,180,95.0,5.5,0
+40,FALSE,210,130.0,7.2,0
+55,TRUE,310,125.0,8.9,1
+48,TRUE,260,140.0,7.8,1
+35,FALSE,190,110.0,6.8,0
