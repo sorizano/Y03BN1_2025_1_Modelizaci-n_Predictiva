@@ -2,7 +2,7 @@ from supabase import create_client
 import toml
 
 try:
-    secrets_path = os.path.join(os.path.dirname(__file__), 'secrets.toml')
+    secrets_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'secrets.toml'))
     secrets = toml.load(secrets_path)
 except FileNotFoundError:
     print('El archivo secrets.toml no se encontró. Asegúrate de que esté presente en el directorio raíz.')
@@ -23,4 +23,3 @@ def obtener_datos_mineria():
 def insertar_resultado_prediccion(datos):
     response = supabase_client.table("resultados_prediccion").insert(datos).execute()
     return response
-
