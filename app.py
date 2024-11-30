@@ -15,8 +15,8 @@ try:
 except FileNotFoundError:
     st.error('El archivo secrets.toml no se encontró. Asegúrate de que esté presente en el directorio raíz.')
     st.stop()
-SUPABASE_URL = secrets['SUPABASE_URL']
-SUPABASE_KEY = secrets['SUPABASE_KEY']
+SUPABASE_URL = secrets['SUPABASE']['URL']
+SUPABASE_KEY = secrets['SUPABASE']['KEY']
 
 supabase_client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
